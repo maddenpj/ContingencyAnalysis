@@ -43,12 +43,13 @@ object Coding {
     def codec = casecodec2(Consequence.apply, Consequence.unapply)("code", "value")
   }
 
+  type CodeSet = (List[Antecedent], List[Behavior], List[Consequence])
 
   // Why can I never get subtypes...
   // def fromFile(tpe: String, path: String) = {
   // def fromFile[T <: Coding](tpe: String, path: String): Option[List[T]] = {
   // def fromFile[_ <: Coding](tpe: String, path: String): Option[List[_]] = {
-  def betterFromFile[T <: Coding : HasCodec](path: String): Map[Int, T] = {
+  def fromFile[T <: Coding : HasCodec](path: String): Map[Int, T] = {
     val json = scala.io.Source.fromFile(path).getLines.toList
 
     val p = json.flatMap { line =>

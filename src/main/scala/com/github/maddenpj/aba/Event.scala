@@ -9,26 +9,26 @@ object Response extends Enumeration {
 import Response._
 
 sealed trait Event[A, B] {
-  def a: A
-  def b: B
+  def fst: A
+  def snd: B
   def response: Response
 }
 
 case class ABEvent(
-  a: Antecedent,
-  b: Behavior,
+  fst: Antecedent,
+  snd: Behavior,
   response: Response
 ) extends Event[Antecedent, Behavior]
 
 case class ACEvent(
-  a: Antecedent,
-  b: Consequence,
+  fst: Antecedent,
+  snd: Consequence,
   response: Response
 ) extends Event[Antecedent, Consequence]
 
 case class BCEvent(
-  a: Behavior,
-  b: Consequence,
+  fst: Behavior,
+  snd: Consequence,
   response: Response
 ) extends Event[Behavior, Consequence]
 
@@ -38,7 +38,6 @@ object Event {
   // def apply(a: Antecedent, b: Consequence, res: Response) = ACEvent(a, b, res)
   // def apply(a: Behavior, b: Consequence, res: Response)   = BCEvent(a, b, res)
   // def  = ev match {
-  //   case 
 
   def fromTextFile[E](path: String)(fn: ((Int, Int, Response)) => E): List[E] = {
     val tuples = scala.io.Source.fromFile(path).getLines.flatMap { l =>
@@ -52,6 +51,14 @@ object Event {
     }
     tuples.map(fn).toList
   }
+  def abFromTextFile(aCoding: Map[Int, Antecedent], bCoding: Map[Int, Behavior], path: String): List[ABEvent] =
+    fromTextFile(path)(x => ABEvent(aCoding(x._1), bCoding(x._2), x._3))
+
+  def acFromTextFile(aCoding: Map[Int, Antecedent], cCoding: Map[Int, Consequence], path: String): List[ACEvent] =
+    fromTextFile(path)(x => ACEvent(aCoding(x._1), cCoding(x._2), x._3))
+
+  def bcFromTextFile(bCoding: Map[Int, Behavior], cCoding: Map[Int, Consequence], path: String): List[BCEvent] =
+    fromTextFile(path)(x => BCEvent(bCoding(x._1), cCoding(x._2), x._3))
 
   // def betterFromFile[A <: Event, B <: Event](aCoding: CodeMap, bCoding: CodeMap, path: String) = {
   // def betterFromFile[A <: Coding, B <: Coding](

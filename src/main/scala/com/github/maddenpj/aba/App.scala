@@ -47,12 +47,10 @@ package com.github.maddenpj.aba
 
 object App {
   def test() = {
-    val aCoding = Coding.betterFromFile[Antecedent]("sample/antecedent.json")
-    val bCoding = Coding.betterFromFile[Behavior]("sample/behavior.json")
+    val aCoding = Coding.fromFile[Antecedent]("sample/antecedent.json")
+    val bCoding = Coding.fromFile[Behavior]("sample/behavior.json")
 
-    Event.fromTextFile[ABEvent]("sample/AB.txt") { case (a, b, res) =>
-      ABEvent(aCoding(a), bCoding(b), res)
-    }
+    Event.abFromTextFile(aCoding, bCoding, "sample/AB.txt")
   }
   def main(args: Array[String]) = {}
 }
