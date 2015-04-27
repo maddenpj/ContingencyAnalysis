@@ -6,6 +6,8 @@ package com.github.maddenpj.aba
 //
 // Observations are recorded times of antecdents behaviors consequences as
 // well as student responses. Don't have original forms.
+// Original data was lists of A,B,C,R datapoints
+// Cartesian products were created for every AB, AC, BC pair
 //
 // Important - BA's are analyszing 3 term contingency of:
 //  Antecedents - stimulus that happenes before a behavior

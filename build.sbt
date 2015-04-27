@@ -11,6 +11,7 @@ lazy val root = (project in file(".")).
     initialCommands := """
       import argonaut._, Argonaut._
       import com.github.maddenpj.aba._, Coding._, aba._
+      import EventAnalysis.Printer
     """,
     libraryDependencies ++= Seq(
       "org.scalaz" %% "scalaz-core" % "7.1.1",
