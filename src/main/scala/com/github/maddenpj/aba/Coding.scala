@@ -31,6 +31,7 @@ case class Consequence (code: Int, value: String) extends Coding {
 
 
 object Coding {
+
   implicit object antecedentCodec extends HasCodec[Antecedent] {
     def codec = casecodec2(Antecedent.apply, Antecedent.unapply)("code", "value")
   }

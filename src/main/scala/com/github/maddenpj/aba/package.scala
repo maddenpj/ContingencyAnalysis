@@ -1,7 +1,7 @@
 package com.github.maddenpj.aba
 
 package object aba {
-  type CodeMap = Map[Int, Coding]
+  // type CodeMap = Map[Int, Coding]
 
   case class CodeSet(
     a: Map[Int, Antecedent],
@@ -18,5 +18,6 @@ package object aba {
     val ab = Event.abFromTextFile(aCoding, bCoding, "sample/AB.txt")
     val ac = Event.acFromTextFile(aCoding, cCoding, "sample/AC.txt")
     val bc = Event.bcFromTextFile(bCoding, cCoding, "sample/BC.txt")
+    val demand = CodeGroup(Antecedent(100, "Verbal Demand"), Set(Testing.aCoding(5), Testing.aCoding(6), Testing.aCoding(7), Testing.aCoding(4), Testing.aCoding(15)))
   }
 }

@@ -34,10 +34,6 @@ case class BCEvent(
 
 
 object Event {
-  // def apply(a: Antecedent, b: Behavior, res: Response)    = ABEvent(a, b, res)
-  // def apply(a: Antecedent, b: Consequence, res: Response) = ACEvent(a, b, res)
-  // def apply(a: Behavior, b: Consequence, res: Response)   = BCEvent(a, b, res)
-  // def  = ev match {
 
   def fromTextFile[E](path: String)(fn: ((Int, Int, Response)) => E): List[E] = {
     val tuples = scala.io.Source.fromFile(path).getLines.flatMap { l =>
@@ -51,6 +47,7 @@ object Event {
     }
     tuples.map(fn).toList
   }
+
   def abFromTextFile(aCoding: Map[Int, Antecedent], bCoding: Map[Int, Behavior], path: String): List[ABEvent] =
     fromTextFile(path)(x => ABEvent(aCoding(x._1), bCoding(x._2), x._3))
 
@@ -59,16 +56,5 @@ object Event {
 
   def bcFromTextFile(bCoding: Map[Int, Behavior], cCoding: Map[Int, Consequence], path: String): List[BCEvent] =
     fromTextFile(path)(x => BCEvent(bCoding(x._1), cCoding(x._2), x._3))
-
-  // def betterFromFile[A <: Event, B <: Event](aCoding: CodeMap, bCoding: CodeMap, path: String) = {
-  // def betterFromFile[A <: Coding, B <: Coding](
-  //   aCoding: Map[Int, A],
-  //   bCoding: Map[Int, B],
-  //   path: String
-  // ) = {
-  //   Event.fromTextFile(path).flatten.map { case (a, b, res) =>
-  //     apply(aCoding(a), bCoding(b), res)
-  //   }
-  // }
 
 }

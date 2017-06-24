@@ -10,8 +10,7 @@ lazy val root = (project in file(".")).
     name := "FBATool",
     initialCommands := """
       import argonaut._, Argonaut._
-      import com.github.maddenpj.aba._, Coding._, aba._
-      import EventAnalysis.Printer
+      import com.github.maddenpj.aba._, Coding._, aba._, analysis._
     """,
     libraryDependencies ++= Seq(
       "org.scalaz" %% "scalaz-core" % "7.1.1",

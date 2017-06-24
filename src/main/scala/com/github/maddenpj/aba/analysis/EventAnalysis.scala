@@ -1,5 +1,6 @@
 package com.github.maddenpj.aba.analysis
 
+import com.github.maddenpj.aba._
 
 object EventAnalysis {
 
